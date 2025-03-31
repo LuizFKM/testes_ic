@@ -1,3 +1,4 @@
+import time
 from urllib.parse import urljoin
 from zipfile import ZIP_DEFLATED, ZipFile
 import requests
@@ -21,11 +22,14 @@ class Scrapping(object):
         lista_links = self.soup.find_all('a', class_='internal-link')
         anexos_links = list(filter(lambda link: 'Anexo I.' in link.text or 'Anexo II.' in link.text, lista_links))
 
+        projeto_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+        download_path = os.path.join(projeto_dir, download_dir)
         
         if download:
-            os.makedirs(download_dir, exist_ok=True)
+            os.makedirs(download_path, exist_ok=True)
         
         resultados = []
+        start_time = time.time()
         
         for link in anexos_links:
             url = link.get('href')
@@ -41,11 +45,11 @@ class Scrapping(object):
 
             if download:
                 try:
-                    filename = os.path.join(download_dir, os.path.basename(url))
-                    with requests.get(url, stream=True) as response:
+                    filename = os.path.join(download_path, os.path.basename(url))
+                    with requests.get(url, stream=True, timeout=10) as response:
                         response.raise_for_status()
                         with open(filename, 'wb') as f:
-                            for chunk in response.iter_content(8192):
+                            for chunk in response.iter_content(65536):
                                 f.write(chunk)
                     result['local_path'] = filename
                     result['success'] = True
@@ -54,36 +58,10 @@ class Scrapping(object):
                     print(f"Erro ao baixar {url}: {str(e)}")
             
             resultados.append(result)
+        end_time = time.time()
+        elapsed_time = end_time - start_time
+        print(f"Download concluído em {elapsed_time:.2f} segundos.")
         return resultados
-    
-    def zip_anexos(self, anexos_dir='anexos', zip_name='anexos.zip', remove_after=False):
-        zip_path = os.path.join(anexos_dir, zip_name)
-        if not os.path.exists(anexos_dir):
-            raise FileNotFoundError(f"Diretório '{anexos_dir}' não encontrado")
-        if not os.listdir(anexos_dir):
-            raise ValueError(f"Diretório '{anexos_dir}' está vazio")
-        
-        try:
-            with ZipFile(zip_path, 'w', ZIP_DEFLATED) as zipf:
-                for root, _, files in os.walk(anexos_dir):
-                    for file in files:
-                        if file != zip_name: 
-                            file_path = os.path.join(root, file)
-                            arcname = os.path.relpath(file_path, anexos_dir)
-                            zipf.write(file_path, arcname)
-                            
-            if remove_after:
-                for root, _, files in os.walk(anexos_dir):
-                    for file in files:
-                        if file != zip_name:
-                            os.remove(os.path.join(root, file))
-                            
-            return os.path.abspath(zip_path)
-            
-        except Exception as e:
-            if os.path.exists(zip_path):
-                os.remove(zip_path)
-            raise RuntimeError(f"Erro ao criar arquivo ZIP: {str(e)}")
         
         
     def processar_anexos(self, download=True, compactar=True, **kwargs):
@@ -102,8 +80,4 @@ class Scrapping(object):
                 return resultados, str(e)  
 
         return resultados, None
-
-
-
-
-
+    
