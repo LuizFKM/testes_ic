@@ -8,7 +8,7 @@ def main():
         'compactar': True,
         'anexos_dir': 'anexos',
         'zip_name': 'anexos_ans.zip',
-        'remove_after': True
+        'remove_after': False
     }
 
     scraper = Scrapping(url)
