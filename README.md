@@ -6,6 +6,7 @@ Este sistema integrado realiza duas funções principais:
 2. **Transformação de Dados**: Processamento dos PDFs baixados para gerar datasets estruturados em CSV
 
 ## Estrutura de Arquivos
+
 ```
 pasta_webscraping/
 ├── file_manager.py   # Classe para gerenciamento de arquivos
