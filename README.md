@@ -1,7 +1,9 @@
-# Documentação do Sistema de Web Scraping e Gerenciamento de Arquivos
+# Documentação do Sistema de Web Scraping e Gerenciamento de Arquivos ANS
 
-## Visão Geral
-Este sistema realiza web scraping de anexos em um site específico da ANS (Agência Nacional de Saúde Suplementar), baixa os arquivos encontrados e oferece funcionalidade para compactá-los em um arquivo ZIP.
+## Visão Geral do Sistema
+Este sistema integrado realiza duas funções principais:
+1. **Coleta de Dados**: Web scraping de anexos do portal da ANS (Agência Nacional de Saúde Suplementar)
+2. **Transformação de Dados**: Processamento dos PDFs baixados para gerar datasets estruturados em CSV
 
 ## Estrutura de Arquivos
 ```
@@ -129,10 +131,10 @@ scraper = Scrapping("https://www.gov.br/ans/...")
 anexos, zip_path = scraper.processar_anexos(**config)
 ```
 
-# Documentação do Sistema de Transformação de Dados
+# Sistema de Transformação de Dados
 
 ## Visão Geral
-Este sistema é responsável por extrair dados de arquivos PDF (especificamente anexos da ANS), transformá-los em DataFrames pandas, realizar limpeza e transformações, e exportar para formatos como CSV e ZIP.
+Responsável por extrair dados de arquivos PDF (especificamente anexos da ANS), transformá-los em DataFrames pandas, realizar limpeza e transformações, e exportar para formatos como CSV e ZIP.
 
 ## Estrutura de Arquivos
 ```
