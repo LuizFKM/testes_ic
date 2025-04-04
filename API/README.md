@@ -32,7 +32,7 @@
 - `nome_empresa`: Nome comercial  
 - `cnpj`: CNPJ sem formatação  
 - `uf`: Estado de atuação  
-- `data_registro_ans`: Data de cadastro  
+
 
 ## **Configuração Rápida**
 ```bash
