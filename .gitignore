@@ -172,3 +172,43 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+venv/
+env/
+
+# Django stuff:
+db.sqlite3
+*.sqlite3
+*.log
+media/
+staticfiles/
+local_settings.py
+.env
+
+# Migrations (opcional, caso trabalhe sozinho)
+migrations/
+
+# VSCode
+.vscode/
+
+# Node.js dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Build files (React/Vite/Webpack)
+dist/
+build/
+
+# Editor backups & OS junk
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
