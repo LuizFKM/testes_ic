@@ -1,0 +1,1 @@
+from .operadora_model import Operadora
