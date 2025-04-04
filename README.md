@@ -1,4 +1,6 @@
-# Documentação do Sistema de Web Scraping e Gerenciamento de Arquivos ANS
+# Sistema de Web Scraping e Gerenciamento de Arquivos ANS
+
+### Documentação da API está dentro da pasta API.
 
 ## Visão Geral do Sistema
 Este sistema integrado realiza duas funções principais:
